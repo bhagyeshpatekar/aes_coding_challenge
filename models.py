@@ -73,7 +73,8 @@ class Transaction_LID(models.Model):
          ('METER', 'METER'),
     ]
     unit = models.CharField(max_length=20,default='KG', choices=unit_choices)
-    add_inventory_items = models.ForeignKey(Inventory_Item,default='', on_delete=models.CASCADE)
+   #add_inventory_items = models.ForeignKey(Inventory_Item,default='', on_delete=models.CASCADE)
+    add_inventory_items = models.ManyToManyField(Inventory_Item, blank=True,null=True)
 
 #    def __str__(self):
 #        return self.uid
@@ -92,7 +93,8 @@ class TransactionModel(models.Model):
     ]
     status = models.CharField(max_length=20, choices=trn_choices, default='PENDING')
     remarks = models.CharField(max_length=64, blank=True)
-    add_transaction_linedetails = models.ForeignKey(Transaction_LID, on_delete=PROTECT,default='')
+    #add_transaction_linedetails = models.ForeignKey(Transaction_LID, on_delete=PROTECT,default='')
+    add_transaction_linedetails = models.ManyToManyField(Transaction_LID, blank=True,null=True)     
 #    class Meta:
 #        managed = False
 #        db_table = 'details'
